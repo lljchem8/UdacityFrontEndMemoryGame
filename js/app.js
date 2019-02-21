@@ -135,9 +135,14 @@ container.addEventListener('click', function(event) {
         matchedCards.push(openCards[1]);
         console.log(matchedCards.length);
         if (matchedCards.length == 16) {
-          const timer = document.querySelector('.timer');
-          alert("congratilations, all cards have been matched, " + "it takes " + timer.innerText + " to complete.");
-          beginGames();
+          const timerElement = document.querySelector('.timer');
+          const time = timerElement.innerText;
+          const moveElement = document.querySelector('.moves');
+          const movement = moveElement.innerText;
+          window.open("congratuationPage.html","_self");
+          sessionStorage.setItem('time', time);
+          sessionStorage.setItem('moves', movement);
+
         }
         openCards = [];
       }
