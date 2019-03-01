@@ -28,8 +28,19 @@ function generateCardHTML() {
   return cardHTML;
 }
 
+function updateStarColor() {
+  const stars = document.querySelectorAll('.star');
+  for (const star of stars) {
+    if (star.getAttribute("data-color") == "white") {
+      star.setAttribute("data-color", "black");
+      star.style.color = 'black';
+    }
+  }
+}
+
 function beginGames() {
   matchedCards = [];
+  updateStarColor();
   const deck = document.querySelector('.deck');
   deck.innerHTML = generateCardHTML(cards);
   const moveElement = document.querySelector('.moves');
@@ -73,9 +84,15 @@ function updateTimer() {
 }
 
 function reduceNumOfStar() {
-    const stars = document.querySelector('.stars');
-    stars.removeChild(stars.firstChild);
-    stars.removeChild(stars.firstChild);
+
+      const stars = document.querySelectorAll('.star');
+      for (const star of stars) {
+        if (star.getAttribute("data-color") == "black") {
+          star.setAttribute("data-color", "white");
+          star.style.color = 'white';
+          return;
+        }
+      }
 }
 
 beginGames();
@@ -114,11 +131,12 @@ container.addEventListener('click', function(event) {
     const card = event.target;
     if (card.classList[0] == 'card' && !card.classList.contains('show') && !card.classList.contains('open')) {
       const numMovement = updateNumMovement();
+
       // when number of movement is larger than 30, star reduced to 2, when its larger than 50, it reduces to 1;
-      if (numMovement == 30) {
+      if (numMovement == 3) {
         reduceNumOfStar();
       }
-      if (numMovement == 50) {
+      if (numMovement == 5) {
         reduceNumOfStar();
       }
       card.classList.add('open', 'show');
