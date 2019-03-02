@@ -48,6 +48,7 @@ function beginGames() {
   const timer = document.querySelector('.timer');
   timecalculator = 0;
   timer.innerText = "00:00";
+  timecalculator = 0;
 }
 
 function updateNumMovement() {
@@ -95,7 +96,25 @@ function reduceNumOfStar() {
       }
 }
 
+function getNumStars(){
+  const stars = document.querySelectorAll('.star');
+  let count = 0;
+  for (const star of stars) {
+    if (star.getAttribute("data-color") == "black") {
+      count++;
+    }
+  }
+  return count;
+}
+
+function displayModal() {
+  const modal = document.querySelector('.modal');
+  modal.style.display = "flex";
+}
+
+
 beginGames();
+
 
 /*
  * Display the cards on the page
@@ -118,8 +137,15 @@ function shuffle(array) {
     return array;
 }
 
-
 const container = document.querySelector('.container');
+
+//click playagain to reload the game
+const button = document.querySelector('.button');
+button.addEventListener('click', function() {
+  const modal = document.querySelector('.modal');
+  modal.style.display = "none";
+  beginGames();
+});
 
 container.addEventListener('click', function(event) {
     // if there is alredy more than 2 cards open,
@@ -133,10 +159,10 @@ container.addEventListener('click', function(event) {
       const numMovement = updateNumMovement();
 
       // when number of movement is larger than 30, star reduced to 2, when its larger than 50, it reduces to 1;
-      if (numMovement == 3) {
+      if (numMovement == 30) {
         reduceNumOfStar();
       }
-      if (numMovement == 5) {
+      if (numMovement == 50) {
         reduceNumOfStar();
       }
       card.classList.add('open', 'show');
@@ -154,12 +180,17 @@ container.addEventListener('click', function(event) {
         console.log(matchedCards.length);
         if (matchedCards.length == 16) {
           const timerElement = document.querySelector('.timer');
-          const time = timerElement.innerText;
           const moveElement = document.querySelector('.moves');
-          const movement = moveElement.innerText;
-          window.open("congratuationPage.html","_self");
-          sessionStorage.setItem('time', time);
-          sessionStorage.setItem('moves', movement);
+
+
+          const moveOutputElement = document.querySelector('.movesResult');
+          const timeOutputElement = document.querySelector('.timeResult');
+          const starResultElement = document.querySelector('.starResult');
+
+          starResultElement.innerText = getNumStars();
+          moveOutputElement.innerText = moveElement.innerText;
+          timeOutputElement.innerText = timerElement.innerText;
+          displayModal();
 
         }
         openCards = [];
