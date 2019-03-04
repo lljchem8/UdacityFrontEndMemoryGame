@@ -40,6 +40,7 @@ function updateStarColor() {
 
 function beginGames() {
   matchedCards = [];
+  openCards = [];
   updateStarColor();
   const deck = document.querySelector('.deck');
   deck.innerHTML = generateCardHTML(cards);
