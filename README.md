@@ -2,8 +2,9 @@
 
 ### How to Play:
 
-1. Download or clone the repositoryon your machine.
-2. Open index.html in your browser.
+1. Download or clone the repositoryon your machine
+2. Open index.html in your browser
+3. Open Github Web Page: https://lljchem8.github.io/UdacityFrontEndMemoryGame/
 
 ### Game Rules:
 1. You have to match cards with identical face.
